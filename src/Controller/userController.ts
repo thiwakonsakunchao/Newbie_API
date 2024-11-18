@@ -54,6 +54,9 @@ export const deleteUser = async ( req: Request, res: Response ): Promise<void> =
         
         const { _id: id } = req.params;
 
+        console.log(id);
+        
+
         
         const result = await User.findByIdAndDelete(id, { new: true });
 
