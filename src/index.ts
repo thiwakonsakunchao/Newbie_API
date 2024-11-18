@@ -1,17 +1,34 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import adminRouter from './Router/adminRouter';
+import userRouter from './Router/userRouter';
+import mongoose from 'mongoose';
 
 dotenv.config();
 
 
 const app = express();
-const port = process.env.APP_PORT;
+const PORT = process.env.APP_PORT;
 
 app.use(express.json());
 
-app.use("/api/admin", adminRouter);
+const mongoURI = "mongodb://rootuser:rootpass@localhost:27017/test?authSource=admin";
 
-app.listen(port, () => {
-    console.log(`Server is running in port ${port}`)
+
+app.use("/api/admin", adminRouter);
+app.use("/api/user", userRouter);
+
+app.listen(PORT, async() => {
+
+    try {
+        await mongoose.connect(mongoURI);
+        console.log(`Database is connected`);
+
+        console.log(`Server is running in port ${PORT}`)
+
+    } catch (error) {
+        console.log(error);
+        
+    }
+    
 })
