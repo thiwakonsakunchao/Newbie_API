@@ -7,7 +7,7 @@ router.get("/get", getAdmin);
 
 router.post("/add", addAdmin);
 
-router.delete("/delete", deleteAdmin)
+router.delete("/delete/:id", deleteAdmin)
 
 router.patch("/update/:id", updateAdmin)
 
