@@ -3,7 +3,7 @@ import User from "../schema/userSchema";
 
 export const getUser = async ( req: Request, res: Response ): Promise<void> => {
     try {
-        const data = await User.find()
+        const data = await User.find();
         res.status(200).json({
             data
         });

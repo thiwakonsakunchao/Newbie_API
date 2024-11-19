@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import adminRouter from './Router/adminRouter';
 import userRouter from './Router/userRouter';
+import questionnaireRouter from './Router/questionnaireRouter';
 import mongoose from 'mongoose';
 
 dotenv.config();
@@ -17,6 +18,7 @@ const mongoURI = "mongodb://rootuser:rootpass@localhost:27017/test?authSource=ad
 
 app.use("/api/admin", adminRouter);
 app.use("/api/user", userRouter);
+app.use("/api/questionnaire", questionnaireRouter);
 
 app.listen(PORT, async() => {
 
