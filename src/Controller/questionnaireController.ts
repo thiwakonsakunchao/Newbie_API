@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import Questionnaire from "../schema/questionnaireSchema";
+import Questionnaire from "../models/questionnaireModel";
 
 export const getQuestionnaire = async ( req: Request, res: Response ): Promise<void> => {
     try {
@@ -18,8 +18,8 @@ export const getQuestionnaire = async ( req: Request, res: Response ): Promise<v
 }
 
 export const addQuestionnaire = async ( req: Request, res: Response ): Promise<void> => {
+    
     const { name, questions } = req.body;
-    console.log(req.body);
     
     try {
         const questionnaire = new Questionnaire ({ name, questions});
@@ -33,5 +33,23 @@ export const addQuestionnaire = async ( req: Request, res: Response ): Promise<v
             message: "Error Na",
             error
         });
+    }
+}
+
+export const deleteQuestionnaire = async ( req: Request, res: Response ): Promise<void> => {
+
+    const { _id: id } = req.params;
+
+    try {
+        const result = await Questionnaire.findByIdAndDelete( id, { new: true });
+
+        res.status(200).json({
+            result
+        });
+    } catch (error) {
+        res.status(500).json({
+            message: "Error Na",
+            error
+        })
     }
 }

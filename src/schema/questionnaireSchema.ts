@@ -1,27 +1,22 @@
-import mongoose from "mongoose";
+import { z } from "zod";
 
 
-const descriptionSchema = new mongoose.Schema({
-    comment: String,
-    correct: Boolean
+const descriptionSchema = z.object({
+    comment: z.string().min(1),
+    correct: z.boolean().default(false)
 });
 
-const questionSchema = new mongoose.Schema({
-    question: String,
-    descriptions: [descriptionSchema]
+const questionSchema = z.object({
+    question: z.string().min(1),
+    descriptions: z.array(descriptionSchema).nonempty()
 });
 
-const questionnaireSchema = new mongoose.Schema({
-    name: String,
-    questions: [questionSchema]
+const questionnaireSchema = z.object({
+    name: z.string().min(1),
+    questions: z.array(questionSchema).nonempty()
 });
 
-const Questionnaire = mongoose.model('Questionnaire', questionnaireSchema);
-
-export default Questionnaire;
+type questionnaireSchema = z.infer<typeof questionnaireSchema>;
 
 
-
-
-
-
+export default questionnaireSchema;
